@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        webView.loadUrl("http://www.yqmh.cuicanchaowan.com")
+        webView.loadUrl("https://juejin.cn/")
         // webView.loadUrl("file:///android_asset/index.html")
 
 //        binding = ActivityMainBinding.inflate(layoutInflater)
