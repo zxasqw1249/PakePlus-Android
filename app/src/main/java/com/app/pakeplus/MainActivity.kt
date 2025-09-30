@@ -42,11 +42,10 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.single_main)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ConstraintLayout)) { view, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ConstraintLayout))
+        { view, insets ->
             val systemBar = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(
-                0, systemBar.top, 0, 0
-            )
+            view.setPadding(0, 0, 0, 0)
             insets
         }
 
