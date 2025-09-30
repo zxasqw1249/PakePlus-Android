@@ -103,7 +103,13 @@ const updateAppName = async (androidResDir, appName) => {
     }
 }
 
-const updateWebEnv = async (androidResDir, webUrl, debug, webview) => {
+const updateWebEnv = async (
+    androidResDir,
+    webUrl,
+    debug,
+    webview,
+    safeArea
+) => {
     try {
         const { userAgent } = webview
 
@@ -146,6 +152,43 @@ const updateWebEnv = async (androidResDir, webUrl, debug, webview) => {
                 '// webView.settings.userAgentString = ""',
                 `webView.settings.userAgentString = "${userAgent}"`
             )
+        }
+
+        // update safeArea
+        if (safeArea) {
+            if (safeArea === 'all') {
+                console.log('webview debug to all')
+            } else if (safeArea === 'top') {
+                updatedContent = updatedContent.replace(
+                    'view.setPadding(0, 0, 0, 0)',
+                    `view.setPadding(systemBar.left, 0, systemBar.right, systemBar.bottom)`
+                )
+            } else if (safeArea === 'bottom') {
+                updatedContent = updatedContent.replace(
+                    'view.setPadding(0, 0, 0, 0)',
+                    `view.setPadding(systemBar.left, systemBar.top, systemBar.right, 0)`
+                )
+            } else if (safeArea === 'left') {
+                updatedContent = updatedContent.replace(
+                    'view.setPadding(0, 0, 0, 0)',
+                    `view.setPadding(0, systemBar.top, systemBar.right, systemBar.bottom)`
+                )
+            } else if (safeArea === 'right') {
+                updatedContent = updatedContent.replace(
+                    'view.setPadding(0, 0, 0, 0)',
+                    `view.setPadding(systemBar.left, systemBar.top, 0, systemBar.bottom)`
+                )
+            } else if (safeArea === 'horizontal') {
+                updatedContent = updatedContent.replace(
+                    'view.setPadding(0, 0, 0, 0)',
+                    `view.setPadding(0, systemBar.top, 0, systemBar.bottom)`
+                )
+            } else if (safeArea === 'vertical') {
+                updatedContent = updatedContent.replace(
+                    'view.setPadding(0, 0, 0, 0)',
+                    `view.setPadding(systemBar.left, 0, systemBar.right, 0)`
+                )
+            }
         }
 
         await fs.writeFile(mainActivityPath, updatedContent)
@@ -263,6 +306,7 @@ const main = async () => {
         webUrl,
         showName,
         debug,
+        safeArea,
     } = ppconfig.android
 
     const outPath = path.resolve(output)
@@ -276,7 +320,7 @@ const main = async () => {
     await updateAppName(dest, showName)
 
     // Update web URL if provided
-    await updateWebEnv(dest, webUrl, debug, webview)
+    await updateWebEnv(dest, webUrl, debug, webview, safeArea)
 
     // 删除根目录的res
     await fs.remove(outPath)
