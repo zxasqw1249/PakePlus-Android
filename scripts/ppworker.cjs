@@ -160,33 +160,33 @@ const updateWebEnv = async (
                 console.log('webview debug to all')
             } else if (safeArea === 'top') {
                 updatedContent = updatedContent.replace(
-                    'view.setPadding(0, 0, 0, 0)',
-                    `view.setPadding(systemBar.left, 0, systemBar.right, systemBar.bottom)`
+                    'view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)',
+                    `view.setPadding(0, systemBar.top, 0, 0)`
                 )
             } else if (safeArea === 'bottom') {
                 updatedContent = updatedContent.replace(
-                    'view.setPadding(0, 0, 0, 0)',
-                    `view.setPadding(systemBar.left, systemBar.top, systemBar.right, 0)`
+                    'view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)',
+                    `view.setPadding(0, 0, 0, systemBar.bottom)`
                 )
             } else if (safeArea === 'left') {
                 updatedContent = updatedContent.replace(
-                    'view.setPadding(0, 0, 0, 0)',
-                    `view.setPadding(0, systemBar.top, systemBar.right, systemBar.bottom)`
+                    'view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)',
+                    `view.setPadding(systemBar.left, 0, 0, 0)`
                 )
             } else if (safeArea === 'right') {
                 updatedContent = updatedContent.replace(
-                    'view.setPadding(0, 0, 0, 0)',
-                    `view.setPadding(systemBar.left, systemBar.top, 0, systemBar.bottom)`
+                    'view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)',
+                    `view.setPadding(0, 0, systemBar.right, 0)`
                 )
             } else if (safeArea === 'horizontal') {
                 updatedContent = updatedContent.replace(
-                    'view.setPadding(0, 0, 0, 0)',
-                    `view.setPadding(0, systemBar.top, 0, systemBar.bottom)`
+                    'view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)',
+                    `view.setPadding(systemBar.left, 0, systemBar.right, 0)`
                 )
             } else if (safeArea === 'vertical') {
                 updatedContent = updatedContent.replace(
-                    'view.setPadding(0, 0, 0, 0)',
-                    `view.setPadding(systemBar.left, 0, systemBar.right, 0)`
+                    'view.setPadding(systemBar.left, systemBar.top, systemBar.right, systemBar.bottom)',
+                    `view.setPadding(0, systemBar.top, 0, systemBar.bottom)`
                 )
             }
         }
